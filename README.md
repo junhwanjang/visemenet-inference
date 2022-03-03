@@ -36,3 +36,25 @@ unzip prtrained_model.zip -d VisemeNet_tensorflow/data/ckpt/pretrain_biwi/
 python freeze_graph.py
 ```
 
+
+## Model Inference
+- The code provides the simple and clean inference code without any needless ones
+- It's compatible with TF 2.0 Version
+
+### Requirements
+* Tensorflow 2.x
+* numpy
+* scipy
+* python_speech_features
+
+### How to run inference
+```python
+from inference import VisemeRegressor
+
+pb_filepath = "./visemenet_frozen.pb"
+wav_file_path = "./test_audio.wav"
+
+viseme_regressor = VisemeRegressor(pb_filepath=pb_filepath)
+
+pred_jali, pred_v_reg, pred_v_cls = viseme_regressor.predict_outputs(wav_file_path=wav_file_path)
+```
