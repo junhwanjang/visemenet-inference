@@ -108,7 +108,7 @@ class VisemeRegressor(object):
         
         target_wav_idxs = np.zeros(shape=(num_frames, window_size))
         for i in range(0, num_frames):
-            target_wav_idxs[i] = padded_idxs[i:i+window_size].reshape(num_frames, window_size)
+            target_wav_idxs[i] = padded_idxs[i:i+window_size].reshape(-1, window_size)
 
         return target_wav_idxs
 
