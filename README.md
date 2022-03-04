@@ -38,6 +38,8 @@ python freeze_graph.py
 
 
 ## Model Inference
+[Colab Demo](https://colab.research.google.com/drive/1dS4chsaFdC1D3vBaIaqIhBNaGSzXtzAc?usp=sharing)
+
 - This code provides the simple and clean inference code without any needless ones
 - It's compatible with TF 2.0 Version
 
