@@ -1,9 +1,9 @@
 # visemenet-inference
 - Inference Demo Code of ["VisemeNet-tensorflow"](https://github.com/yzhou359/VisemeNet_tensorflow)
-    * The repo is outdated and difficult to setup the environment for testing of the pretrained model
+    * The original repo is outdated and difficult to setup the environment for testing of the pretrained model
 
 ## How to freeze graph
-- The code does not need bazel-build for "freeze-graph" function
+- This repo does not need bazel-build for "freeze-graph" function
 - Refers to https://github.com/lighttransport/VisemeNet-infer
 
 ### Requirements
@@ -38,7 +38,7 @@ python freeze_graph.py
 
 
 ## Model Inference
-- The code provides the simple and clean inference code without any needless ones
+- This code provides the simple and clean inference code without any needless ones
 - It's compatible with TF 2.0 Version
 
 ### Requirements
