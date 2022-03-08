@@ -1,10 +1,12 @@
 # visemenet-inference
-- Inference Demo Code of ["VisemeNet-tensorflow"](https://github.com/yzhou359/VisemeNet_tensorflow)
-    * The original repo is outdated and difficult to setup the environment for testing of the pretrained model
+- Inference Demo of ["VisemeNet-tensorflow"](https://github.com/yzhou359/VisemeNet_tensorflow) 
+    * VisemeNet is an audio-driven animator centric speech animation driving a JALI or standard FACS-based face-rigging from input audio. 
+    * The original repo is outdated and difficult to setup the environment for testing the pretrained model. This code is to provide a super-clean inference module based on the original author's repo.
+
 
 ## How to freeze graph
 - This repo does not need bazel-build for "freeze-graph" function
-- Refers to https://github.com/lighttransport/VisemeNet-infer
+- Thanks to https://github.com/lighttransport/VisemeNet-infer for giving some examples.
 
 ### Requirements
 * Python 3.6.x using ["pyenv"](https://github.com/pyenv/pyenv)
