@@ -79,7 +79,6 @@ class VisemeRegressor(object):
         
         return pred_jali, pred_v_reg, pred_v_cls
 
-
     def _prepare_model_input(self, normalized_feat, target_wav_idxs, batch_size, close_face_txt_path):
         batch_x = np.zeros((batch_size, self.n_steps, self.n_input))
         batch_x_face_id = np.zeros((batch_size, self.n_face_id))
@@ -156,6 +155,9 @@ class VisemeRegressor(object):
             [mfcc_feat, logfbank_feat, ssc_feat], axis=1
         )
 
+        target_frames = int(concat_features.shape[0] / self.mfcc_win_step_per_frame / self.up_sample_rate)
+        mfcc_lines = concat_features[:target_frames * self.mfcc_win_step_per_frame * self.up_sample_rate]
+
         if is_debug:
             print("Sample Rate: {}".format(sample_rate))
             print("Signal Shape: {}".format(signal.shape))
@@ -166,7 +168,7 @@ class VisemeRegressor(object):
             print("[ssc feat shape]: {}".format(ssc_feat.shape))
             print("--> Concat Features Shape: {}".format(concat_features.shape))
         
-        return concat_features
+        return mfcc_lines
 
     def _load_graph(self, pb_filepath):
         with tf.io.gfile.GFile(pb_filepath, 'rb') as f:
