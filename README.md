@@ -58,7 +58,7 @@ from inference import VisemeRegressor
 
 pb_filepath = "./visemenet_frozen.pb"
 wav_file_path = "./test_audio.wav"
-out_txt_path = "./maya_viseme_outputs.txt
+out_txt_path = "./maya_viseme_outputs.txt"
 
 viseme_regressor = VisemeRegressor(pb_filepath=pb_filepath)
 
