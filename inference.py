@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import scipy.io.wavfile as wav
 from python_speech_features import logfbank, mfcc, ssc
+from postprocess import postprocess_model_outputs
 
 
 class VisemeRegressor(object):
@@ -76,8 +77,16 @@ class VisemeRegressor(object):
                     }
             )
             pred_v_cls = self.sigmoid(pred_v_cls)
+
+        # Postprocess Outputs - Smoothing and Clip based on the pre-calculated thresholds
+        cls_output = np.concatenate([pred_jali, pred_v_cls], axis=1)
+        reg_output = np.concatenate([pred_jali, pred_v_reg], axis=1)
+
+        viseme_outputs = postprocess_model_outputs(
+            reg_output=reg_output, cls_output=cls_output
+        )
         
-        return pred_jali, pred_v_reg, pred_v_cls
+        return viseme_outputs
 
     def _prepare_model_input(self, normalized_feat, target_wav_idxs, batch_size, close_face_txt_path):
         batch_x = np.zeros((batch_size, self.n_steps, self.n_input))
@@ -88,8 +97,9 @@ class VisemeRegressor(object):
         # batch_y_lipS = np.zeros((batch_size, 1))
         # batch_y_maya_param = np.zeros((batch_size, self.n_maya_params))
 
-        batch_x = normalized_feat[target_wav_idxs].reshape(-1, self.n_steps, self.n_input)
-        
+        for i in range(0, batch_size):
+            batch_x[i] = normalized_feat[target_wav_idxs[i]].reshape((-1, self.n_steps, self.n_input))
+
         close_face = np.loadtxt(close_face_txt_path)
         batch_x_face_id = np.tile(close_face, (batch_size, 1))
         
