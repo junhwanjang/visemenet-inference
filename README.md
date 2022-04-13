@@ -3,6 +3,33 @@
     * VisemeNet is an audio-driven animator centric speech animation driving a JALI or standard FACS-based face-rigging from input audio. 
     * The original repo is outdated and difficult to setup the environment for testing the pretrained model. This code is to provide a super-clean inference module based on the original author's repo.
 
+## Model Inference
+[Colab Demo](https://colab.research.google.com/drive/1dS4chsaFdC1D3vBaIaqIhBNaGSzXtzAc?usp=sharing)
+
+- This code provides the simple and clean inference code without any needless ones
+- It's compatible with TF 2.0 Version
+
+### Requirements
+* Tensorflow 2.x
+* numpy
+* scipy
+* python_speech_features
+
+### How to run inference
+```python
+import numpy as np
+from inference import VisemeRegressor
+
+pb_filepath = "./visemenet_frozen.pb"
+wav_file_path = "./test_audio.wav"
+out_txt_path = "./maya_viseme_outputs.txt"
+
+viseme_regressor = VisemeRegressor(pb_filepath=pb_filepath)
+
+viseme_outputs = viseme_regressor.predict_outputs(wav_file_path=wav_file_path)
+
+np.savetxt(out_txt_path, viseme_outputs, '%.4f')
+```
 
 ## How to freeze graph
 - This repo does not need bazel-build for "freeze-graph" function
@@ -36,33 +63,4 @@ unzip prtrained_model.zip -d VisemeNet_tensorflow/data/ckpt/pretrain_biwi/
 ```shell
 # Freeze Graph
 python freeze_graph.py
-```
-
-
-## Model Inference
-[Colab Demo](https://colab.research.google.com/drive/1dS4chsaFdC1D3vBaIaqIhBNaGSzXtzAc?usp=sharing)
-
-- This code provides the simple and clean inference code without any needless ones
-- It's compatible with TF 2.0 Version
-
-### Requirements
-* Tensorflow 2.x
-* numpy
-* scipy
-* python_speech_features
-
-### How to run inference
-```python
-import numpy as np
-from inference import VisemeRegressor
-
-pb_filepath = "./visemenet_frozen.pb"
-wav_file_path = "./test_audio.wav"
-out_txt_path = "./maya_viseme_outputs.txt"
-
-viseme_regressor = VisemeRegressor(pb_filepath=pb_filepath)
-
-viseme_outputs = viseme_regressor.predict_outputs(wav_file_path=wav_file_path)
-
-np.savetxt(out_txt_path, viseme_outputs, '%.4f')
 ```
